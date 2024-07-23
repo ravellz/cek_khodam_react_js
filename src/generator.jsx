@@ -4,15 +4,21 @@ import React, { useState } from "react";
 const Generator = () => {
   const [inputValue, setInputValue] = useState("");
   const [isButtonSwitcher, setIsButtonSwitcher] = useState(true);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
 
+  // const handleInputDisabled = () => {
+  //   setIsDisabled(!isDisabled);
+  // };
+
   const handleClick = (el) => {
     if (inputValue == "evan" || inputValue == "Evan") {
       document.getElementById("display").innerHTML = "CIEE DINAAAA";
       setIsButtonSwitcher(!isButtonSwitcher);
+      setIsDisabled(!isDisabled);
     } else if (inputValue == "") {
       alert("Masukkan Nama Terlebih Dahulu");
     } else {
@@ -50,6 +56,7 @@ const Generator = () => {
       );
       console.log(depan[modDepan], belakang[modBelakang]);
       setIsButtonSwitcher(!isButtonSwitcher);
+      setIsDisabled(!isDisabled);
     }
     el.preventDefault();
   };
@@ -71,6 +78,7 @@ const Generator = () => {
               placeholder="Masukkan Nama"
               onChange={handleInputChange}
               value={inputValue}
+              disabled={isDisabled}
             />
             <div className="show" id="display">
               -
