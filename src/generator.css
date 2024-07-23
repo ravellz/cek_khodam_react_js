@@ -4,6 +4,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.3);
+  background-position: center;
 }
 
 .body {
@@ -20,7 +21,8 @@
   display: flex;
   flex-direction: column;
   border: 2px #ece5e5 solid;
-  padding: 90px;
+  border-radius: 10px;
+  padding: clamp(45px, 13vw, 70px);
   box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.7);
   justify-content: center;
   align-items: center;
@@ -28,16 +30,25 @@
 
 .title {
   color: #ece5e5;
-  font-size: 70px;
-  margin-bottom: 20px;
+  font-size: clamp(37px, 8vw, 70px);
+  margin-bottom: clamp(20px, 4vw, 40px);
+  text-align: center;
+}
+
+.nama {
+  border: 2px rgb(212, 206, 206) solid;
+  border-radius: 6px;
+  color: rgb(36, 36, 36);
+  font-size: clamp(15px, 4vw, 40px);
+  text-align: center;
+  margin-bottom: clamp(20px, 3vw, 30px);
 }
 
 .show {
-  /* border: 2px rgb(212, 206, 206) solid; */
   color: #ece5e5;
-  font-size: 40px;
+  font-size: clamp(15px, 4vw, 40px);
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: clamp(20px, 3vw, 30px);
   justify-content: center;
 }
 
@@ -47,22 +58,15 @@
   align-items: center;
 }
 
-.nama {
-  border: 2px rgb(212, 206, 206) solid;
-  color: rgb(36, 36, 36);
-  font-size: 40px;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
 .btn {
-  background-color: #04aa6d; /* Green */
+  background-color: #449f96; /* Green */
   border: none;
+  border-radius: 6px;
   color: white;
-  padding: 15px 32px;
+  padding: clamp(10px, 3vw, 15px) clamp(20px, 3vw, 32px);
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 20px;
-  margin-top: 10px;
+  font-size: clamp(8px, 1.5vw, 20px);
+  font-weight: 700;
 }
