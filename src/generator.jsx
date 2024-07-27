@@ -1,5 +1,5 @@
 import "./generator.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const Generator = () => {
@@ -9,19 +9,30 @@ const Generator = () => {
   const [isButtonSwitcher, setIsButtonSwitcher] = useState(true);
   // Bikin kolom input jadi gabisa diisi biar kalau mau isi lagi harus pencet tombol Cek Khodam Nama Yang Lain
   const [isDisabled, setIsDisabled] = useState(false);
+  const [data, setData] = useState(null);
+  const [khodam, setKhodam] = useState(null);
+  const [isKhodamSwitcher, setisKhodamSwitcher] = useState(false);
 
   // Untuk ganti value nama dari kosong ("") ke nama orangnya
   const handleNama = (event) => {
     setNama(event.target.value);
   };
 
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost/db_khodam/data_khodam.php")
+  //     .then((response) => {
+  //       setData(response.data);
+  //       console.log(response.data);
+  //     })
+  //     .catch((error) => console.error("Error fetching data:", error));
+  // }, []);
+
   // Tombol Cek Khodam yang multifungsi
   const handleClick = (el) => {
     if (nama == "evan" || nama == "Evan") {
       let hasilKhodam = "Dina My Lop";
-      document.getElementById("display").innerHTML = hasilKhodam;
-      setIsButtonSwitcher(!isButtonSwitcher);
-      setIsDisabled(!isDisabled);
+      // document.getElementById("display").innerHTML = hasilKhodam;
 
       // axios untuk nyambungin ke database pake php
       const url = "http://localhost/db_khodam/koneksi.php";
@@ -31,8 +42,13 @@ const Generator = () => {
       fData.append("khodam", hasilKhodam);
       axios
         .post(url, fData)
-        .then((response) => alert(response.data))
+        .then((response) => setData(response.data))
         .catch((error) => alert(error));
+
+      setIsButtonSwitcher(!isButtonSwitcher);
+      setIsDisabled(!isDisabled);
+      setisKhodamSwitcher(isKhodamSwitcher);
+      setKhodam(hasilKhodam);
     } else if (nama == "") {
       // validasi input biar ngga kosong
       alert("Masukkan Nama Terlebih Dahulu");
@@ -67,10 +83,10 @@ const Generator = () => {
       let kataDepan = Math.floor(Math.random() * depan.length);
       let kataBelakang = Math.floor(Math.random() * belakang.length);
       let hasilKhodam = depan[kataDepan].concat(" ", belakang[kataBelakang]);
-      document.getElementById("display").innerHTML = hasilKhodam;
+      // document.getElementById("display").innerHTML = hasilKhodam;
 
       // Block code axios untuk menyambungkan dan passing data ke koneksi.php biar bisa dipakai disana
-      const url = "http://localhost/db_khodam/koneksi.php";
+      const url = "http://localhost/db_khodam/validation.php";
       let fData = new FormData();
       // "nama" disini bukan diambil dari id atau classname seperti metode koneksi ke php vanilla, tapi sebagai inisial yang dapat dipanggil di koneksi.php.
       // Karena hal diataslah sebenarnya ngga perlu nyamain id/classname nya kayak metode POST biasa di php, jadi value yang kanan itu bisa ngambil dari variabel apa aja (bisa useState atau variabel langsung dari blok kode logika/matematika. cth randomizer yang ada diatas.)
@@ -79,11 +95,18 @@ const Generator = () => {
       fData.append("khodam", hasilKhodam);
       axios
         .post(url, fData)
-        .then((response) => alert(response.data))
+        // .then((response) => {
+        //   response.json();
+        // })
+        // console.log(response.json());
+        .then((response) => setData(response.data))
         .catch((error) => alert(error));
+      // console.log("Fetched data:", data);
 
+      setKhodam(hasilKhodam);
       setIsButtonSwitcher(!isButtonSwitcher);
       setIsDisabled(!isDisabled);
+      setisKhodamSwitcher(isKhodamSwitcher);
     }
     // Bikin tombolnya ngga langsung reset karena bentuk tombolnya input bukan button yang punya default nge-refresh page
     el.preventDefault();
@@ -111,7 +134,7 @@ const Generator = () => {
               disabled={isDisabled}
             />
             <div className="show" id="display">
-              -
+              {isKhodamSwitcher ? khodam : data}
             </div>
             <div className="flex-btn">
               {isButtonSwitcher ? (
