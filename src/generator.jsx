@@ -1,32 +1,23 @@
 import "./generator.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 const Generator = () => {
   // Untuk input nama orangnya
   const [nama, setNama] = useState("");
   // Untuk ganti dari button Cek Khodam ke Cek Khodam Nama Yang Lain
-  const [isButtonSwitcher, setIsButtonSwitcher] = useState(true);
+  const [isSwitcher, setIsSwitcher] = useState(false);
   // Bikin kolom input jadi gabisa diisi biar kalau mau isi lagi harus pencet tombol Cek Khodam Nama Yang Lain
   const [isDisabled, setIsDisabled] = useState(false);
+  // Untuk mengambil data khodam dari database yang dikirimkan dari phpmyadmin melewati proses query dari php lalu di parsing ke reactjs
   const [data, setData] = useState(null);
+  // Untuk simpan data hasil randomizer khodam
   const [khodam, setKhodam] = useState(null);
-  const [isKhodamSwitcher, setisKhodamSwitcher] = useState(false);
 
   // Untuk ganti value nama dari kosong ("") ke nama orangnya
   const handleNama = (event) => {
     setNama(event.target.value);
   };
-
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost/db_khodam/data_khodam.php")
-  //     .then((response) => {
-  //       setData(response.data);
-  //       console.log(response.data);
-  //     })
-  //     .catch((error) => console.error("Error fetching data:", error));
-  // }, []);
 
   // Tombol Cek Khodam yang multifungsi
   const handleClick = (el) => {
@@ -45,9 +36,8 @@ const Generator = () => {
         .then((response) => setData(response.data))
         .catch((error) => alert(error));
 
-      setIsButtonSwitcher(!isButtonSwitcher);
+      setIsSwitcher(!isSwitcher);
       setIsDisabled(!isDisabled);
-      setisKhodamSwitcher(isKhodamSwitcher);
       setKhodam(hasilKhodam);
     } else if (nama == "") {
       // validasi input biar ngga kosong
@@ -95,18 +85,12 @@ const Generator = () => {
       fData.append("khodam", hasilKhodam);
       axios
         .post(url, fData)
-        // .then((response) => {
-        //   response.json();
-        // })
-        // console.log(response.json());
         .then((response) => setData(response.data))
         .catch((error) => alert(error));
-      // console.log("Fetched data:", data);
 
       setKhodam(hasilKhodam);
-      setIsButtonSwitcher(!isButtonSwitcher);
+      setIsSwitcher(!isSwitcher);
       setIsDisabled(!isDisabled);
-      setisKhodamSwitcher(isKhodamSwitcher);
     }
     // Bikin tombolnya ngga langsung reset karena bentuk tombolnya input bukan button yang punya default nge-refresh page
     el.preventDefault();
@@ -116,6 +100,28 @@ const Generator = () => {
   const refreshButton = () => {
     window.location.reload(false);
   };
+
+  // const handleFlushData = async () => {
+  //   try {
+  //     const response = await fetch("http://localhost/db_khodam/cleanup.php", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+
+  //     const result = await response.json();
+
+  //     if (result.status === "success") {
+  //       alert(result.message);
+  //     } else {
+  //       alert(result.message);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     alert("Failed to flush data.");
+  //   }
+  // };
 
   return (
     <div className="bg">
@@ -134,24 +140,24 @@ const Generator = () => {
               disabled={isDisabled}
             />
             <div className="show" id="display">
-              {isKhodamSwitcher ? khodam : data}
+              {isSwitcher ? data : khodam}
             </div>
             <div className="flex-btn">
-              {isButtonSwitcher ? (
-                <input
-                  type="submit"
-                  value="Cek Khodam Kamu"
-                  id="btn"
-                  className="btn"
-                  onClick={handleClick}
-                />
-              ) : (
+              {isSwitcher ? (
                 <input
                   type="submit"
                   value="Cek Khodam Nama Yang Lain"
                   id="ref"
                   className="btn"
                   onClick={refreshButton}
+                />
+              ) : (
+                <input
+                  type="submit"
+                  value="Cek Khodam Kamu"
+                  id="btn"
+                  className="btn"
+                  onClick={handleClick}
                 />
               )}
             </div>
