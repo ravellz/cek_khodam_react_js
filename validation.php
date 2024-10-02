@@ -10,6 +10,7 @@
         echo mysqli_connect_error();
         exit();
     } else {
+        echo json_encode(['message' => 'PHP API connected']);
         $nama = $_POST['nama'];
         $khodam = $_POST['khodam'];
 
