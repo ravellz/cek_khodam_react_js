@@ -1,7 +1,7 @@
-<!-- Script php untuk validasi untuk fitur anti-double input ke database -->
-<!-- Jadi setiap nama akan dapat 1 khodam yang sama untuk 1 hari tersebut, direset setiap harinya untuk dapat khodam yang lain -->
-
 <?php
+// Script php untuk validasi untuk fitur anti-double input ke database
+// Jadi setiap nama akan dapat 1 khodam yang sama untuk 1 hari tersebut, direset setiap harinya untuk dapat khodam yang lain 
+
     header('Access-Control-Allow-Origin: *');
     include 'koneksi.php';
 
