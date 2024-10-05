@@ -5,7 +5,7 @@
     header('Access-Control-Allow-Origin: *');
     include 'koneksi.php';
 
-
+    
     if(mysqli_connect_error()){
         echo mysqli_connect_error();
         exit();

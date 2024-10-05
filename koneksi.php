@@ -1,11 +1,10 @@
-<!-- Sumber koneksi database php yang digunakan -->
-
 <?php
+// Sumber koneksi database php yang digunakan
     header('Access-Control-Allow-Origin: *');
     
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
+    $servername = "Localhost";
+    $username = "ravell";
+    $password = "Password1!";
     $dbname = "db_cek_khodam";
 
     // Membuat koneksi
