@@ -10,13 +10,18 @@
         echo mysqli_connect_error();
         exit();
     } else {
-        echo json_encode(['message' => 'PHP API connected']);
-        $nama = $_POST['nama'];
-        $khodam = $_POST['khodam'];
-
-        // Sanitasi input
-        $nama = $conn->real_escape_string($nama);
-        $khodam = $conn->real_escape_string($khodam);
+        if(isset($_POST['nama']) && isset($_POST['khodam'])) {
+            $nama = $_POST['nama'];
+            $khodam = $_POST['khodam'];
+        
+            // Sanitasi input
+            $nama = $conn->real_escape_string($nama);
+            $khodam = $conn->real_escape_string($khodam);
+        
+            // Lanjutkan dengan logika lainnya
+        } else {
+            echo "Nama atau Khodam tidak dikirim.";
+        }
 
         // Query untuk memeriksa keberadaan nama
         $queryShowNama = "SELECT * FROM tb_khodam WHERE nama = '$nama'";
