@@ -3,8 +3,9 @@
 // Jadi setiap nama akan dapat 1 khodam yang sama untuk 1 hari tersebut, direset setiap harinya untuk dapat khodam yang lain 
 
     header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: POST');
+    header('Access-Control-Allow-Headers: Content-Type');
     include 'koneksi.php';
-
     
     if(mysqli_connect_error()){
         echo mysqli_connect_error();

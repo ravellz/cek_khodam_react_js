@@ -26,7 +26,7 @@ const Generator = () => {
       // document.getElementById("display").innerHTML = hasilKhodam;
 
       // axios untuk nyambungin ke database pake php
-      const url = "https://khodam.ravell.online/db_khodam/koneksi.php";
+      const url = "https://kapi.ravell.online/phpmyadmin";
       let fData = new FormData();
       // kayaknya append ini gunanya untuk passing data ke php, valuenya bebas yang penting yang di dalam petik "blabla" itu sama kayak di php bagian $nama = $_POST[' blabla'];
       fData.append("nama", nama);
@@ -76,7 +76,7 @@ const Generator = () => {
       // document.getElementById("display").innerHTML = hasilKhodam;
 
       // Block code axios untuk menyambungkan dan passing data ke koneksi.php biar bisa dipakai disana
-      const url = "https://khodam.ravell.online/db_khodam/validation.php";
+      const url = "https://kapi.ravell.online/phpmyadmin";
       let fData = new FormData();
       // "nama" disini bukan diambil dari id atau classname seperti metode koneksi ke php vanilla, tapi sebagai inisial yang dapat dipanggil di koneksi.php.
       // Karena hal diataslah sebenarnya ngga perlu nyamain id/classname nya kayak metode POST biasa di php, jadi value yang kanan itu bisa ngambil dari variabel apa aja (bisa useState atau variabel langsung dari blok kode logika/matematika. cth randomizer yang ada diatas.)
